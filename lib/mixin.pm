@@ -3,7 +3,7 @@ package mixin;
 use strict;
 no strict 'refs';
 use vars qw($VERSION);
-$VERSION = '0.03';
+$VERSION = '0.04';
 
 
 =head1 NAME
@@ -67,7 +67,9 @@ sub import {
 
     foreach my $mixin (@mixins) {
         # XXX This is lousy, but it will do for now.
-        eval { require $caller; } unless defined ${$caller.'::VERSION'};
+        unless( defined ${$mixin.'::VERSION'} ) {
+            eval qq{ require $mixin; };
+        }
         _mixup($mixin, $caller);
     }
 }
