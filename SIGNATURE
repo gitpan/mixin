@@ -1,0 +1,36 @@
+This file contains message digests of all files listed in MANIFEST,
+signed via the Module::Signature module, version 0.55.
+
+To verify the content in this distribution, first make sure you have
+Module::Signature installed, then type:
+
+    % cpansign -v
+
+It will check each file's integrity, as well as the signature's
+validity.  If "==> Signature verified OK! <==" is not displayed,
+the distribution may already have been compromised, and you should
+not run its Makefile.PL or Build.PL.
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+SHA1 67ae1ad5ee6c9f692f675855dc190e60f22f261f Changes
+SHA1 32b4e41a7dcf425d325ef64eaf8e6cf7bd01e894 MANIFEST
+SHA1 1d84b992a48f1e07b8ca37b572b8579142642242 META.yml
+SHA1 3483862348de2c37d7ef361d296f1096ad1482ab Makefile.PL
+SHA1 34f57b4058168db22a227680d65f89cc3739acc8 lib/mixin.pm
+SHA1 388d44a165493ab9798ad4c002450647448b63a3 lib/mixin/with.pm
+SHA1 8c0f42421d6c035526ce41253ec6c7d108f78357 t/compile_error.t
+SHA1 8507ce2dfe790aa5d23a318343ac48e9f5e704c1 t/lib/Dog/CompileError.pm
+SHA1 a787b0cb3ced3cd63977d9ffa334fba4f44013f4 t/lib/Dog/Hamish.pm
+SHA1 d84c927956defd3f7da9685ab8b9ab4c1b981062 t/lib/Test/Builder.pm
+SHA1 a39990702e54bd464260887f356688f82487122d t/lib/Test/More.pm
+SHA1 7c7d1bd1b60d86bf90da8977e11d18e677de8023 t/lib/Test/Simple.pm
+SHA1 90c45b3a5c7ba860575f645a595b935d4bef5529 t/mixin.t
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.5 (Darwin)
+
+iD8DBQFF/1c0WMohlhD1QycRAkJ6AJ9/4jBZlNO9FHc+Uo4S/Lst4YC02gCfQQ5P
+BtTd7XEiMPr21DNhYZzkXlc=
+=MS4+
+-----END PGP SIGNATURE-----

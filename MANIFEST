@@ -1,10 +1,14 @@
 Changes
-MANIFEST
-Makefile.PL
 lib/mixin.pm
 lib/mixin/with.pm
+Makefile.PL
+MANIFEST
+t/compile_error.t
+t/lib/Dog/CompileError.pm
 t/lib/Dog/Hamish.pm
 t/lib/Test/Builder.pm
 t/lib/Test/More.pm
 t/lib/Test/Simple.pm
 t/mixin.t
+META.yml                                 Module meta-data (added by MakeMaker)
+SIGNATURE                                Public-key signature (added by MakeMaker)
