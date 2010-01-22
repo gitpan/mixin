@@ -3,7 +3,7 @@ package mixin;
 use strict;
 no strict 'refs';
 use vars qw($VERSION);
-$VERSION = '0.06';
+$VERSION = '0.07';
 
 
 =head1 NAME
@@ -42,7 +42,9 @@ The idea is to solve the same sets of problems which MI solves without
 the problems of MI.  For all practical purposes you can think of a
 mixin as multiple inheritance without the actual inheritance.
 
-Mixins are a band-aid for the problems of MI.  A better solution is to use traits (called "Roles" in Perl 6), which are like mixins on steroids.  Class::Trait implements this.
+Mixins are a band-aid for the problems of MI.  A better solution is to
+use traits (called "Roles" in Perl 6), which are like mixins on
+steroids.  Class::Trait implements this.
 
 
 =head2 Using a mixin class
@@ -70,7 +72,9 @@ See L<mixin::with>.
 
 =head2 Mixins, Inheritance and SUPER
 
-A class which uses a mixin I<does not> inherit from it.  However, through some clever trickery, C<SUPER> continues to work.  Here's an example.
+A class which uses a mixin I<does not> inherit from it.  However,
+through some clever trickery, C<SUPER> continues to work.  Here's an
+example.
 
     {
         package Parent;
@@ -100,9 +104,17 @@ A class which uses a mixin I<does not> inherit from it.  However, through some c
 
     print join " ", Child->foo;  # Parent Middle Child
 
-This will print C<Parent Middle Child>.  You'll note that this is the same result if Child inherited from Middle and Middle from Parent.  Its also the same result if Child multiply inherited from Middle and Parent but I<NOT> if it inherited from Parent then Middle.  The advantage of mixins vs multiple inheritance is such ambiguities do not exist.
+This will print C<Parent Middle Child>.  You'll note that this is the
+same result if Child inherited from Middle and Middle from Parent.
+Its also the same result if Child multiply inherited from Middle and
+Parent but I<NOT> if it inherited from Parent then Middle.  The
+advantage of mixins vs multiple inheritance is such ambiguities do not
+exist.
 
-Note that even though both the Child and Middle define foo() the Middle mixin does not overwrite Child's foo().  A mixin does not simply export its methods into the mixer and thus does not blow over existing methods.
+Note that even though both the Child and Middle define foo() the
+Middle mixin does not overwrite Child's foo().  A mixin does not
+simply export its methods into the mixer and thus does not blow over
+existing methods.
 
 =cut
 
@@ -133,7 +145,7 @@ sub _mixup {
     my($with, $pkg) = mixin::with->__mixers($mixin);
 
     _croak("$mixin is not a mixin") unless $with;
-    _croak("$caller must be a subclass of $with")
+    _croak("$caller must be a subclass of $with to mixin $mixin")
       unless $caller->isa($with);
 
     # This has to happen here and not in mixin::with because "use
@@ -156,7 +168,7 @@ sub _thieve_public_methods {
     while( my($sym, $glob) = each %{$mixin.'::'}) {
         next if $sym =~ /^_/;
         next unless defined $glob;
-        *glob = *$glob;
+        *glob = *{$mixin.'::'.$sym};
         *{$pkg.'::'.$sym} = *glob{CODE} if *glob{CODE};
     }
 
@@ -177,24 +189,34 @@ sub _croak {
     goto &Carp::croak;
 }
 
-sub _carp {
-    require Carp;
-    goto &Carp::carp;
-}
-
 
 =head1 NOTES
 
 A mixin will not warn if the mixin and the user define the same method.
 
+
 =head1 AUTHOR
 
 Michael G Schwern E<lt>schwern@pobox.comE<gt>
 
+
+=head1 LICENSE
+
+Copyright 2002-2010 by Michael G Schwern
+
+This library is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+L<http://dev.perl.org/licenses/>
+
+
 =head1 SEE ALSO
 
 L<Class::Trait> - mixin.pm is a gateway drug to traits
+
 L<Class::C3> - another band-aid on multiple inheritance
+
+L<Moose::Role> - Moose's implementation of traits/roles.
 
 =cut
 
